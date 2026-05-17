@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحويل الرابط</title>
+</head>
+<body>
+<script>
+(function(){
+  const path = window.location.pathname;
+  const qs = window.location.search;
+  const hash = window.location.hash || "";
+
+  if (path.endsWith("/reset-password.php")) {
+    window.location.replace(path.replace("/reset-password.php", "/reset-password.html") + qs + hash);
+    return;
+  }
+
+  if (path.endsWith("/verify-email.php")) {
+    window.location.replace(path.replace("/verify-email.php", "/verify-email.html") + qs + hash);
+    return;
+  }
+
+  if (path.endsWith("/index.php")) {
+    window.location.replace(path.replace("/index.php", "/index.html") + qs + hash);
+    return;
+  }
+
+  document.body.innerHTML = "<h2>الصفحة غير موجودة</h2><p>تأكد من الرابط.</p>";
+})();
+</script>
+</body>
+</html>

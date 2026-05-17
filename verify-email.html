@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تأكيد الحساب - جاري التوجيه</title>
+<style>
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);margin:0;padding:0;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.container{background:white;padding:40px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.2);text-align:center;max-width:480px}
+.btn{background:#0077ff;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="container">
+<div id="ok" style="display:none">
+<h2>🎉 جاري تفعيل حسابك</h2>
+<p>سيتم تحويلك إلى التطبيق خلال لحظات...</p>
+<p>إذا لم يفتح التطبيق، اضغط هنا:</p>
+<a id="openApp" class="btn" href="#">فتح التطبيق</a><br>
+<a class="btn" style="background:#28a745" href="https://play.google.com/store/apps/details?id=com.example.courses">تحميل التطبيق</a>
+</div>
+<div id="bad" style="display:none">
+<h2 style="color:red">رابط غير صالح</h2>
+<p>رابط التأكيد غير صحيح أو منقوص.</p>
+<a href="./">العودة للرئيسية</a>
+</div>
+</div>
+
+<script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token") || params.get("token_hash") || "";
+  const fallbackUrl = "https://play.google.com/store/apps/details?id=com.example.courses";
+
+  if (!token) {
+    document.getElementById("bad").style.display = "block";
+    return;
+  }
+
+  const appUrl = "myapp://emailverify?token=" + encodeURIComponent(token);
+  document.getElementById("ok").style.display = "block";
+  document.getElementById("openApp").href = appUrl;
+
+  window.location.href = appUrl;
+  setTimeout(function(){ window.location.href = fallbackUrl; }, 2000);
+})();
+</script>
+</body>
+</html>
